@@ -4,6 +4,7 @@ class App {
   async run() {
     const input = await Console.readLineAsync("덧셈할 문자열을 입력해 주세요.\n");
 
+    // 빈 문자열 처리
     if (input.trim() === "") {
       Console.print("결과 : 0");
       return;
@@ -16,6 +17,7 @@ class App {
     Console.print(`결과 : ${sum}`);
   }
 
+  // 커스텀 구분자
   parseDelimiter(input) {
     if (input.startsWith("//")) {
       const parts = input.split("\\n");
@@ -31,6 +33,7 @@ class App {
     };
   }
 
+  // 유효성 검증
   validateNumber(num) {
     if (isNaN(num) || num.trim() === "") {
       throw new Error("[ERROR] 숫자를 입력해주세요.");
@@ -44,6 +47,7 @@ class App {
     }
   }
 
+  //합 계산
   calculate(numbers) {
     numbers.forEach(num => this.validateNumber(num));
     return numbers.reduce((acc, num) => acc + Number(num), 0);
