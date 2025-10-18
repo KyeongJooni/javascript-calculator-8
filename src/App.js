@@ -25,8 +25,12 @@ class App {
       if (isNaN(num) || num.trim() === "") {
         throw new Error("[ERROR] 숫자를 입력해주세요.");
       }
-      if (Number(num) < 0) {
+      const n = Number(num);
+      if (n < 0) {
         throw new Error("[ERROR] 음수는 입력할 수 없습니다.");
+      }
+      if (!Number.isInteger(n)) {
+        throw new Error("[ERROR] 정수만 입력할 수 있습니다.");
       }
     });
 
