@@ -10,16 +10,16 @@ class App {
     }
 
     let delimiter = /[,:]/;
-    let numberString = input;
+    let str = input;
 
     if (input.startsWith("//")) {
-      const delimiterEndIndex = input.indexOf("\\n");
-      const customDelimiter = input.substring(2, delimiterEndIndex);
-      delimiter = new RegExp(`[,:${customDelimiter}]`);
-      numberString = input.substring(delimiterEndIndex + 2);
+      const parts = input.split("\\n");
+      const delim = parts[0].substring(2);
+      delimiter = new RegExp(`[,:${delim}]`);
+      str = parts[1];
     }
 
-    const numbers = numberString.split(delimiter);
+    const numbers = str.split(delimiter);
 
     numbers.forEach(num => {
       if (Number(num) < 0) {
