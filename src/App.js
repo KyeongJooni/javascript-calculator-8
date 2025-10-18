@@ -9,33 +9,44 @@ class App {
       return;
     }
 
-    let delimiter = /[,:]/;
-    let str = input;
+    const { delimiter, str } = this.parseDelimiter(input);
+    const numbers = str.split(delimiter);
+    const sum = this.calculate(numbers);
 
+    Console.print(`결과 : ${sum}`);
+  }
+
+  parseDelimiter(input) {
     if (input.startsWith("//")) {
       const parts = input.split("\\n");
       const delim = parts[0].substring(2);
-      delimiter = new RegExp(`[,:${delim}]`);
-      str = parts[1];
+      return {
+        delimiter: new RegExp(`[,:${delim}]`),
+        str: parts[1]
+      };
     }
+    return {
+      delimiter: /[,:]/,
+      str: input
+    };
+  }
 
-    const numbers = str.split(delimiter);
+  validateNumber(num) {
+    if (isNaN(num) || num.trim() === "") {
+      throw new Error("[ERROR] 숫자를 입력해주세요.");
+    }
+    const n = Number(num);
+    if (n < 0) {
+      throw new Error("[ERROR] 음수는 입력할 수 없습니다.");
+    }
+    if (!Number.isInteger(n)) {
+      throw new Error("[ERROR] 정수만 입력할 수 있습니다.");
+    }
+  }
 
-    numbers.forEach(num => {
-      if (isNaN(num) || num.trim() === "") {
-        throw new Error("[ERROR] 숫자를 입력해주세요.");
-      }
-      const n = Number(num);
-      if (n < 0) {
-        throw new Error("[ERROR] 음수는 입력할 수 없습니다.");
-      }
-      if (!Number.isInteger(n)) {
-        throw new Error("[ERROR] 정수만 입력할 수 있습니다.");
-      }
-    });
-
-    const sum = numbers.reduce((acc, num) => acc + Number(num), 0);
-    Console.print(`결과 : ${sum}`);
+  calculate(numbers) {
+    numbers.forEach(num => this.validateNumber(num));
+    return numbers.reduce((acc, num) => acc + Number(num), 0);
   }
 }
 
