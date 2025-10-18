@@ -22,6 +22,9 @@ class App {
     const numbers = str.split(delimiter);
 
     numbers.forEach(num => {
+      if (isNaN(num) || num.trim() === "") {
+        throw new Error("[ERROR] 숫자를 입력해주세요.");
+      }
       if (Number(num) < 0) {
         throw new Error("[ERROR] 음수는 입력할 수 없습니다.");
       }
