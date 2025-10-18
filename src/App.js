@@ -20,6 +20,13 @@ class App {
     }
 
     const numbers = numberString.split(delimiter);
+
+    numbers.forEach(num => {
+      if (Number(num) < 0) {
+        throw new Error("[ERROR] 음수는 입력할 수 없습니다.");
+      }
+    });
+
     const sum = numbers.reduce((acc, num) => acc + Number(num), 0);
     Console.print(`결과 : ${sum}`);
   }
