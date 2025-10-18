@@ -8,6 +8,10 @@ class App {
       Console.print("결과 : 0");
       return;
     }
+
+    const numbers = input.split(/[,:]/);
+    const sum = numbers.reduce((acc, num) => acc + Number(num), 0);
+    Console.print(`결과 : ${sum}`);
   }
 }
 
